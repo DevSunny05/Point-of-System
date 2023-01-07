@@ -9,4 +9,15 @@ const itemModel=require('../models/item-model')
     }
 }
 
-module.exports={getItemController};
+const postItemController=async(req,res)=>{
+    try {
+        const newItem=new itemModel(req.body)
+        await newItem.save()
+        return res.status(201).send("Item created successfully")
+    } catch (error) {
+        return res.status(400).json(error)
+        console.log(error)
+    }
+}
+
+module.exports={getItemController,postItemController};
