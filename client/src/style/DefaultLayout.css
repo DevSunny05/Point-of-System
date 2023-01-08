@@ -1,0 +1,48 @@
+.ant-layout-sider-children{
+    height: 100vh !important;
+}
+
+.anticon svg {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    margin-left: 20px;
+}
+
+.ant-layout-header {
+    padding: 0px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+
+    line-height: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.ant-layout-content{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    text-align: center;
+    color: whitesmoke;
+    padding: 5px;
+    margin-top: 10px;
+    letter-spacing: 2px;
+}
+
+.cart-item{
+    margin-right: 5px;
+}

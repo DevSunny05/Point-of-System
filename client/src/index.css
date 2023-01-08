@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600&display=swap');
+
+body{
+    font-family: 'Sora', sans-serif;
+}
+
+.item-button button{
+    margin-top: 20px;
+    width: 200px;
+    background-color: rgb(103, 103, 160);
+    color: white;
+}
