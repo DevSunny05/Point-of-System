@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import '../style/DefaultLayout.css'
 import {
   MenuFoldOutlined,
@@ -14,18 +14,25 @@ import {
   
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
+import Spinner from './Spinner';
 
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout = ({children}) => {
+ const navigate=useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-  // const {cartItems}=useSelector(state=>state.rootReducer)
+  const {cartItems,loading}=useSelector(state=>state.rootReducer)
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  useEffect(()=>{
+    localStorage.setItem('cartItems',JSON.stringify(cartItems))
+  },[cartItems])
+
   return (
     <Layout>
+      {loading && <Spinner/>}
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div >
           <h2 className="logo" >POS</h2>
@@ -65,9 +72,10 @@ const DefaultLayout = ({children}) => {
             onClick: () => setCollapsed(!collapsed),
           })}
 
-          <div className="cart-item">
-            {/* <p>{cartItems.length}</p> */}
-            <ShoppingCartOutlined />
+          <div className="cart-item" style={{display:'flex',alignItem:'center',margin:'10px',justifyContent:'center',position:'relative'}} onClick={()=>navigate('/cart')}>
+            {console.log(cartItems)}
+            <ShoppingCartOutlined style={{display:'flex',alignItems:'center',background:'lightBlue',width:'30px',height:'30px',borderRadius:'100%'}} />
+            <p style={{fontWeight:'bold',position:'absolute',left:'-4px'}}>{cartItems.length}</p>
           </div>
         </Header>
         <Content

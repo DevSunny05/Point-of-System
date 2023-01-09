@@ -1,7 +1,17 @@
 import React from "react";
 import { Button, Card } from "antd";
+import { useDispatch } from "react-redux";
+
 
 const SingleItem = ({ item }) => {
+  const dispatch=useDispatch();
+  
+  const handleAddToCart=()=>{
+    dispatch({
+      type:'ADD_TO_CART',
+      payload:{...item,quantity:1},
+    })
+  }
   const { Meta } = Card;
   return (
     <div>
@@ -13,13 +23,13 @@ const SingleItem = ({ item }) => {
           <img
             alt={item.name}
             src={item.image}
-            style={{ height: 240, }}
+            style={{ height: 200, }}
           />
         }
       >
         <Meta title={item.name}  />
         <div className="item-button">
-            <Button>Add to cart</Button>
+            <Button onClick={()=>handleAddToCart()}>Add to cart</Button>
         </div>
       </Card>
     </div>

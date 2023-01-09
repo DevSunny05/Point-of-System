@@ -20,7 +20,7 @@ const middleware = [thunk];
 
 const store = configureStore(
     {reducer:{
-        root:rootReducer,
+      rootReducer:rootReducer,
     }},
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
