@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import DefaultLayout from "../components/DefaultLayout";
 import {
@@ -6,9 +6,11 @@ import {
   PlusCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { Table } from "antd";
+import { Button, Table, Modal, message } from "antd";
 
 const Cart = () => {
+  const [subTotal, setSubTotal] = useState(0);
+  const [billPopup, setBillPopup] = useState(false);
   const { cartItems } = useSelector((state) => state.rootReducer);
   const dispatch = useDispatch();
   //  handle icreament
@@ -34,7 +36,13 @@ const Cart = () => {
       title: "Image",
       dataIndex: "image",
       render: (image, record) => (
-        <img src={image} alt={record.name} height="100" width="100" style={{objectFit:'cover',borderRadius:'10px'}} />
+        <img
+          src={image}
+          alt={record.name}
+          height="100"
+          width="100"
+          style={{ objectFit: "cover", borderRadius: "10px" }}
+        />
       ),
     },
     { title: "Price", dataIndex: "price" },
@@ -63,17 +71,43 @@ const Cart = () => {
       render: (id, record) => (
         <DeleteOutlined
           style={{ cursor: "pointer" }}
-          onClick={() => dispatch({
-            type:'DELETE_FROM_CART',
-            payload:record
-          })}
+          onClick={() =>
+            dispatch({
+              type: "DELETE_FROM_CART",
+              payload: record,
+            })
+          }
         />
       ),
     },
   ];
+
+  useEffect(() => {
+    let temp = 0;
+    cartItems.forEach((item) => (temp = temp + item.price * item.quantity));
+    setSubTotal(temp);
+  }, [cartItems]);
+
   return (
     <DefaultLayout>
       <Table columns={columns} dataSource={cartItems} bordered />
+      <div className="d-flex flex-column align-items-end">
+        <hr />
+        <h3>
+          SUB TOTAL : $<b>{subTotal}</b>
+        </h3>
+        <Button type="primary" onClick={() => setBillPopup(true)}>
+          Create Invoice
+        </Button>
+      </div>
+
+      <Modal
+        open={billPopup}
+        onCancel={() => setBillPopup(false)}
+        footer={false}
+      >
+        <p>Invoice Modal</p>
+      </Modal>
     </DefaultLayout>
   );
 };

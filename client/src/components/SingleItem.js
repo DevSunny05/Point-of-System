@@ -17,8 +17,7 @@ const SingleItem = ({ item }) => {
     <div>
       <Card
         hoverable
-        
-        style={{  width: 240, margin:20 }}
+        style={{  width: 240, margin:20,boxShadow:' rgba(0, 0, 0, 0.24) 0px 3px 8px' }}
         cover={
           <img
             alt={item.name}

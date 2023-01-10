@@ -25,7 +25,11 @@ app.use(morgan('dev'))
 
 
 // routes
+// item routes endpoint
 app.use('/api/items',require('./routes/item-route'))
+// user route endpoint
+app.use('/api/users',require('./routes/user-route'))
+
 
 // port
 const PORT=process.env.PORT || 8080

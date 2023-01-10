@@ -16,8 +16,27 @@ const postItemController=async(req,res)=>{
         return res.status(201).send("Item created successfully")
     } catch (error) {
         return res.status(400).json(error)
-        console.log(error)
+        
     }
 }
 
-module.exports={getItemController,postItemController};
+const editItemController=async(req,res)=>{
+    try {
+        await itemModel.findOneAndUpdate({_id:req.body.itemId},req.body)
+        return res.status(201).send("Item updated")
+    } catch (error) {
+        return res.status(400).send(error)
+    }
+}
+
+const deleteItemController=async(req,res)=>{
+    try {
+        const {itemId}=req.body;
+        await itemModel.findOneAndDelete({_id:itemId})
+        return res.status(201).send("Item Deleted")
+    } catch (error) {
+        return res.status(400).send("Unable to delete item")
+    }
+}
+
+module.exports={getItemController,postItemController,editItemController,deleteItemController};
